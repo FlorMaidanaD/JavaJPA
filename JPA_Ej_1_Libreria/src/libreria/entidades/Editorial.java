@@ -80,7 +80,7 @@ public class Editorial implements Serializable {
 
     @Override
     public String toString() {
-        return "Editorial: /n" + "id= " + id + ", nombre= " + nombre + ", alta= " + alta;
+        return "Editorial: \n" + "id= " + id + ", nombre= " + nombre + ", alta= " + alta;
     }
 
   

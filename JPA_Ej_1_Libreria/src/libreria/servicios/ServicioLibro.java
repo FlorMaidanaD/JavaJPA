@@ -94,15 +94,14 @@ public class ServicioLibro {
     //consulta          
     public void consultaLibroId (Long isbn){
        Libro l = em.find (Libro.class, isbn);     
-        System.out.println(l);
-        System.out.println(l.t  toString()); 
+        System.out.println(l.toString()); 
     }
     
     public void consutaLibroNombre (String nombre){
         Libro l = (Libro) em.createQuery("SELECT a FROM Libro a"
                     + " WHERE a.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();
             Libro l2 = em.find(Libro.class, l.getId());
-            l2.toString();
+            System.out.println(l2.toString());;
         
     }
     

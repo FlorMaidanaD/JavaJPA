@@ -2,9 +2,7 @@ package jpa_ej_1_libreria;
 
 import java.util.Collection;
 import java.util.Scanner;
-import libreria.entidades.Autor;
 import libreria.entidades.Editorial;
-import static libreria.entidades.Libro_.editorial;
 import libreria.servicios.ServicioAutor;
 import libreria.servicios.ServicioEditorial;
 import libreria.servicios.ServicioLibro;
@@ -24,7 +22,7 @@ public class MainLibreria {
         System.out.println("*                     LIBRERIA                      *");
         System.out.println("*                                                   *");
         System.out.println("*****************************************************");
-        
+
         try {
             do {
                 System.out.println("");
@@ -36,8 +34,8 @@ public class MainLibreria {
                 System.out.println("3. BAJAS");
                 System.out.println("4. CONSULTAS");
                 System.out.println("0. SALIR");
-                System.out.println("*****************************************************");
-                System.out.print("***_ ");
+                System.out.println("");
+                System.out.print("Elección: ");
                 op = leer.nextInt();
                 switch (op) {
                     case 1:
@@ -46,8 +44,9 @@ public class MainLibreria {
                                 System.out.println("1. NUEVA EDITORIAL");
                                 System.out.println("2. NUEVO AUTOR");
                                 System.out.println("3. NUEVO LIBRO");
-                                System.out.println("4. SALIR");
-                                System.out.print("***_ ");
+                                System.out.println("0. SALIR");
+                                System.out.println("");
+                                System.out.print("Elección: ");
                                 op2 = leer.nextInt();
                                 switch (op2) {
                                     case 1:
@@ -63,10 +62,10 @@ public class MainLibreria {
                                         System.out.println("");
                                         break;
                                 }
-                            } while (op2 != 4);
+                            } while (op2 != 0);
                             op2 = 100;
                         } catch (Exception e) {
-                            System.out.println("Error del sistema");
+                            System.out.println("No ingresó una opcion válida");
                         }
                         break;
 
@@ -77,8 +76,9 @@ public class MainLibreria {
                                 System.out.println("1. EDITAR EDITORIAL");
                                 System.out.println("2. EDITAR AUTOR");
                                 System.out.println("3. EDITAR LIBRO");
-                                System.out.println("4. SALIR");
-                                System.out.print("***_ ");
+                                System.out.println("0. SALIR");
+                                System.out.println("");
+                                System.out.print("Elección: ");
                                 op2 = leer.nextInt();
                                 switch (op2) {
                                     case 1:
@@ -109,10 +109,10 @@ public class MainLibreria {
                                         System.out.println("");
                                         break;
                                 }
-                            } while (op2 != 4);
+                            } while (op2 != 0);
                             op2 = 100;
                         } catch (Exception e) {
-                            System.out.println("Error del sistema");
+                            System.out.println("No ingresó una opcion válida");
                         }
                         break;
                     case 3:
@@ -122,8 +122,9 @@ public class MainLibreria {
                                 System.out.println("1. BAJA EDITORIAL");
                                 System.out.println("2. BAJA AUTOR");
                                 System.out.println("3. BAJA LIBRO");
-                                System.out.println("4. SALIR");
-                                System.out.print("***_ ");
+                                System.out.println("0. SALIR");
+                                System.out.println("");
+                                System.out.print("Elección: ");
                                 op2 = leer.nextInt();
                                 switch (op2) {
                                     case 1:
@@ -149,10 +150,10 @@ public class MainLibreria {
                                         System.out.println("");
                                         break;
                                 }
-                            } while (op2 != 4);
-                            op2 = 100;
+                            } while (op2 != 0);
+
                         } catch (Exception e) {
-                            System.out.println("Error del sistema");
+                            System.out.println("No ingresó una opcion válida");
                         }
                         break;
                     case 4:
@@ -165,20 +166,16 @@ public class MainLibreria {
                                 System.out.println("4. CONSULTA LIBRO por NOMBRE");
                                 System.out.println("5. CONSULTA LIBRO por AUTOR");
                                 System.out.println("6. CONSULTA LIBRO por EDITORIAL");
-                                System.out.println("7. SALIR");
-                                System.out.print("***_ ");
+                                System.out.println("0. SALIR");
+                                System.out.println("");
+                                System.out.print("Elección: ");
                                 op2 = leer.nextInt();
                                 switch (op2) {
                                     case 1:
                                         System.out.println("");
                                         System.out.print("*** Ingrese nombre de editorial a BUSCAR: -");
                                         String nombre = leer.next();
-                                        Collection<Editorial> editoriales = se.consultaEditorial(nombre);
-                                        for (Editorial editoriale : editoriales) {
-                                            editoriale.toString();
-                                            System.out.println("");
-                                        }
-
+                                        se.consultaEditorial(nombre);
                                         System.out.println("");
                                         break;
                                     case 2:
@@ -198,33 +195,33 @@ public class MainLibreria {
                                     case 4:
                                         System.out.println("");
                                         System.out.println("*** Ingrese NOMBRE del libro a CONSULTAR: -");
-                                        String nombrel=leer.next();
-                                        sl.eliminacionLibroPorNombre(nombrel);
+                                        String nombrel = leer.next();
+                                        sl.consutaLibroNombre(nombrel);
                                         break;
                                     case 5:
-                                     System.out.println("");
+                                        System.out.println("");
                                         System.out.println("*** Ingrese NOMBRE DEL AUTOR del libro a CONSULTAR: -");
-                                        String nombrea=leer.next();   
+                                        String nombrea = leer.next();
                                         sl.consultaLibroAutor(nombrea);
                                         break;
                                     case 6:
                                         System.out.println("");
                                         System.out.println("*** Ingrese NOMBRE DE LA EDITORIAL del libro a CONSULTAR: -");
-                                        String nombree=leer.next();
+                                        String nombree = leer.next();
                                         sl.consultaLibroEditorial(nombree);
                                         break;
                                 }
-                            } while (op2 != 7);
-                        
+                            } while (op2 != 0);
+
                         } catch (Exception e) {
-                            System.out.println("Error del sistema");
+                            System.out.println("No ingresó una opcion válida");
                         }
                         break;
 
                 }
             } while (op != 0);
         } catch (Exception e) {
-            System.out.println("Error del sistema");
+            System.out.println("No ingresó una opcion válida");
         }
     }
 }

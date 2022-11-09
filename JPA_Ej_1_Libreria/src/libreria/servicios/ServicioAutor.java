@@ -2,7 +2,6 @@ package libreria.servicios;
 
 import java.util.Collection;
 import java.util.Scanner;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;

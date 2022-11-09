@@ -66,12 +66,14 @@ public class ServicioEditorial {
         }
            
     }    */
-    public Collection<Editorial> consultaEditorial(String nombre) {
+    public void consultaEditorial(String nombre) {
 
         Collection<Editorial> editoriales = em.createQuery("SELECT a FROM Editorial a"
                 + " WHERE a.nombre = :nombre").setParameter("nombre", nombre).getResultList();
-
-        return editoriales;
+        for (Editorial editoriale : editoriales) {
+            System.out.println(editoriale.toString());
+            System.out.println("");
+        }
 
     }
 
