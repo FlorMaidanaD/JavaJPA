@@ -10,6 +10,7 @@ import libreria.servicios.ServicioLibro;
 public class MainLibreria {
 
     public static void main(String[] args) {
+         //  System.out.printf("Formatted to right margin: n = %20.4f\n", n);
         Scanner leer = new Scanner(System.in).useDelimiter("\n");
         ServicioEditorial se = new ServicioEditorial();
         ServicioAutor sa = new ServicioAutor();
@@ -44,7 +45,7 @@ public class MainLibreria {
                                 System.out.println("1. NUEVA EDITORIAL");
                                 System.out.println("2. NUEVO AUTOR");
                                 System.out.println("3. NUEVO LIBRO");
-                                System.out.println("0. SALIR");
+                                System.out.println("0. VOLVER");
                                 System.out.println("");
                                 System.out.print("Elección: ");
                                 op2 = leer.nextInt();
@@ -76,7 +77,7 @@ public class MainLibreria {
                                 System.out.println("1. EDITAR EDITORIAL");
                                 System.out.println("2. EDITAR AUTOR");
                                 System.out.println("3. EDITAR LIBRO");
-                                System.out.println("0. SALIR");
+                                System.out.println("0. VOLVER");
                                 System.out.println("");
                                 System.out.print("Elección: ");
                                 op2 = leer.nextInt();
@@ -122,9 +123,9 @@ public class MainLibreria {
                                 System.out.println("1. BAJA EDITORIAL");
                                 System.out.println("2. BAJA AUTOR");
                                 System.out.println("3. BAJA LIBRO");
-                                System.out.println("0. SALIR");
+                                System.out.println("0. VOLVER");
                                 System.out.println("");
-                                System.out.print("Elección: ");
+                                System.out.print("Elección: 4");
                                 op2 = leer.nextInt();
                                 switch (op2) {
                                     case 1:
@@ -166,7 +167,7 @@ public class MainLibreria {
                                 System.out.println("4. CONSULTA LIBRO por NOMBRE");
                                 System.out.println("5. CONSULTA LIBRO por AUTOR");
                                 System.out.println("6. CONSULTA LIBRO por EDITORIAL");
-                                System.out.println("0. SALIR");
+                                System.out.println("0. VOLVER");
                                 System.out.println("");
                                 System.out.print("Elección: ");
                                 op2 = leer.nextInt();
