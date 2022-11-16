@@ -37,28 +37,7 @@ public class ServicioAutor {
         }
     }
 
-    /* //ESTE ME TIRA ERROR NO SE POR QUE... ALGO CON EL RETURN Y EL TRY
-        public Autor crearAutorAuto(String nombre) {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("LibreriaPersistencia");
-            EntityManager em = emf.createEntityManager();
- 
-            try {
-
-                Autor a1 = new Autor();
-                a1.setNombre(nombre);
-                a1.setAlta(Boolean.TRUE);
-               
-
-                em.getTransaction().begin();
-                em.persist(a1);
-                em.getTransaction().commit();
-                return a1;
-
-            } catch (Exception e) {
-                System.out.println("Error del sistema");
-            }      
-
-    }*/
+  
     //creacion pasando nombre
     public Autor crearAutorAuto(String nombre) {
         Autor a1 = new Autor();
@@ -79,9 +58,9 @@ public class ServicioAutor {
                                                 +" WHERE a.nombre = :nombre").setParameter("nombre", nombre).getResultList();
               
         for (Autor autore : autores) {
-           autore.toString();
-            System.out.println("");
-            
+            if (autore.getAlta()==true)
+                autore.imprimirLindo();
+            //System.out.println(autore.toString());           
         }
  
     }

@@ -18,86 +18,96 @@ public class ServicioLibro {
 
     public void crearLibro() {
         try {
-
             Libro l1 = new Libro();
             System.out.print("- ISBN: ");
-            l1.setId(leer.nextLong());
-            System.out.print("- TITULO: ");
-            l1.setTitulo(leer.next());
-            System.out.print("- AÑO: ");
-            l1.setAnio(leer.nextInt());
-            System.out.print("- EJEMPLARES: ");
-            l1.setEjemplares(leer.nextInt());
-            System.out.print("- PRESTADOS: ");
-            l1.setEjemplaresPrestados(leer.nextInt());
-            //aca hacer un metodo y llamarlo directamente, pero habria que ponerle variables...
-            try {
-                l1.setEjemplaresRestantes(l1.getEjemplares() - l1.getEjemplaresPrestados());
-            } catch (Exception e) {
-                System.out.println("Error del sistema al ingresar las cantidades");
-            }
-            l1.setAlta(Boolean.TRUE);
-            System.out.println("");
-            System.out.println("-----------------------");
-            /*List<Autor> autores = em.createQuery("SELECT a FROM Autor a").getResultList();
+            Long isbn = leer.nextLong();
+            if (validaLibroId(isbn)) {
+                l1.setId(isbn);
+                System.out.print("- TITULO: ");
+                l1.setTitulo(leer.next());
+                System.out.print("- AÑO: ");
+                l1.setAnio(leer.nextInt());
+                System.out.print("- EJEMPLARES: ");
+                l1.setEjemplares(leer.nextInt());
+                System.out.print("- PRESTADOS: ");
+                l1.setEjemplaresPrestados(leer.nextInt());
+                //aca hacer un metodo y llamarlo directamente, pero habria que ponerle variables...
+                try {
+                    l1.setEjemplaresRestantes(l1.getEjemplares() - l1.getEjemplaresPrestados());
+                } catch (Exception e) {
+                    System.out.println("Error del sistema al ingresar las cantidades");
+                }
+                l1.setAlta(Boolean.TRUE);
+                System.out.print("AUTOR: ");
+                String nombreA = leer.next();
+                List<Autor> autores = em.createQuery("SELECT a FROM Autor a").getResultList();
+                boolean a = false;
                 for (Autor autore : autores) {
-                    System.out.println(autore);
-                }*/
-            System.out.print("AUTOR: ");
-            String nombreA = leer.next();
-            List<Autor> autores = em.createQuery("SELECT a FROM Autor a").getResultList();
-            boolean a = false;
-            for (Autor autore : autores) {
-                if (autore.getNombre().equalsIgnoreCase(nombreA)) {
-                    l1.setAutor(autore);
-                    a = true;
-                    break;
+                    if (autore.getNombre().equalsIgnoreCase(nombreA)) {
+                        l1.setAutor(autore);
+                        a = true;
+                        break;
+                    }
                 }
-            }
-            if (a == false) {
-                ServicioAutor sa = new ServicioAutor();
-                l1.setAutor(sa.crearAutorAuto(nombreA));
-            }
-
-            System.out.println("");
-            System.out.println("-----------------------");
-            System.out.print("EDITORIAL: ");
-            String nombreE = leer.next();
-            List<Editorial> editoriales = em.createQuery("SELECT e FROM Editorial e").getResultList();
-            boolean ed = false;
-            for (Editorial editoriale : editoriales) {
-                if (editoriale.getNombre().equalsIgnoreCase(nombreE)) {
-                    l1.setEditorial(editoriale);
-                    ed = true;
-                    break;
+                if (a == false) {
+                    ServicioAutor sa = new ServicioAutor();
+                    l1.setAutor(sa.crearAutorAuto(nombreA));
                 }
-            }
-            if (ed == false) {
-                ServicioEditorial se = new ServicioEditorial();
-                l1.setEditorial(se.crearEditorialAuto(nombreE));
-            }
 
-            em.getTransaction().begin();
-            em.persist(l1);
-            em.getTransaction().commit();
+                System.out.println("");
+                System.out.println("-----------------------");
+                System.out.print("EDITORIAL: ");
+                String nombreE = leer.next();
+                List<Editorial> editoriales = em.createQuery("SELECT e FROM Editorial e").getResultList();
+                boolean ed = false;
+                for (Editorial editoriale : editoriales) {
+                    if (editoriale.getNombre().equalsIgnoreCase(nombreE)) {
+                        l1.setEditorial(editoriale);
+                        ed = true;
+                        break;
+                    }
+                }
+                if (ed == false) {
+                    ServicioEditorial se = new ServicioEditorial();
+                    l1.setEditorial(se.crearEditorialAuto(nombreE));
+                }
 
+                em.getTransaction().begin();
+                em.persist(l1);
+                em.getTransaction().commit();
+            } else {
+                System.out.println("EL LIBRO YA ESTÁ CARGADO");
+
+            }
         } catch (Exception e) {
             System.out.println("Datos invalidos, ISBN ya ingresado");
         }
+
+        /*List<Autor> autores = em.createQuery("SELECT a FROM Autor a").getResultList();
+                for (Autor autore : autores) {
+                    System.out.println(autore);
+                }*/
     }
 
-    //consulta          
+//consulta          
     public void consultaLibroId(Long isbn) {
         Libro l = em.find(Libro.class, isbn);
         System.out.println(l.toString());
+    }
+
+    public boolean validaLibroId(Long isbn) {
+        Libro l = em.find(Libro.class, isbn);
+        return l == null;
     }
 
     public void consutaLibroNombre(String titulo) {
         try {
             List<Libro> l = em.createQuery("SELECT a FROM Libro a"
                     + " WHERE a.titulo = :titulo").setParameter("titulo", titulo).getResultList();
+            System.out.printf("%-5s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ISBN", "TITULO", "AÑO", "CANT. EJEMPLARES", "PRESTADOS", "DISPONIBLES", "ALTA", "AUTOR", "EDITORIAL");
+
             for (Libro libro : l) {
-                System.out.println(libro);
+                libro.imprimirLindo();
 
             }
         } catch (Exception e) {
@@ -113,8 +123,9 @@ public class ServicioLibro {
 
             List<Libro> libros = em.createQuery("SELECT a FROM Libro a"
                     + " WHERE a.autor.nombre LIKE :autor").setParameter("autor", autor).getResultList();
+            System.out.printf("%-5s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ISBN", "TITULO", "AÑO", "CANT. EJEMPLARES", "PRESTADOS", "DISPONIBLES", "ALTA", "AUTOR", "EDITORIAL");
             for (Libro libro : libros) {
-                System.out.println(libro.toString());
+                libro.imprimirLindo();
                 System.out.println("");
             }
 
@@ -125,12 +136,24 @@ public class ServicioLibro {
 
     }
 
+    public void mostrarLibros() {
+        List<Libro> libros = em.createQuery("SELECT a FROM Libro a").getResultList();
+        
+        System.out.printf("%-5s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ISBN", "TITULO", "AÑO", "TOTAL", "PRESTADOS", "DISPONIBLES", "ALTA", "AUTOR", "EDITORIAL");
+        for (Libro libro : libros) {
+            libro.imprimirLindo();
+            System.out.println("");
+        }
+    }
+
     public void consultaLibroEditorial(String editorial) {
         try {
             List<Libro> libros = em.createQuery("SELECT a FROM Libro a"
                     + " WHERE a.editorial.nombre = :editorial").setParameter("editorial", editorial).getResultList();
+           
+            System.out.printf("%-5s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ISBN", "TITULO", "AÑO", "TOTAL", "PRESTADOS", "DISPONIBLES", "ALTA", "AUTOR", "EDITORIAL");
             for (Libro libro : libros) {
-                System.out.println(libro.toString());
+                libro.imprimirLindo();
                 System.out.println("");
             }
         } catch (Exception e) {
@@ -143,7 +166,8 @@ public class ServicioLibro {
     public void modificacionLibroNombre(Long isbn, String nombreNuevo) {
 
         try {
-            Libro l = em.find(Libro.class, isbn);
+            Libro l = em.find(Libro.class,
+                    isbn);
             l.setTitulo(nombreNuevo);
             em.getTransaction().begin();
             em.merge(l);
@@ -160,7 +184,8 @@ public class ServicioLibro {
         try {
             Libro l = (Libro) em.createQuery("SELECT a FROM Libro a"
                     + " WHERE a.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();
-            Libro l2 = em.find(Libro.class, l.getId());
+            Libro l2 = em.find(Libro.class,
+                    l.getId());
             l2.setAlta(Boolean.FALSE);
             //em.getTransaction().begin();
             //em.remove(l2);
@@ -174,13 +199,16 @@ public class ServicioLibro {
     public void eliminarLibroIsbn(Long isbn) {
 
         try {
-            Libro l = em.find(Libro.class, isbn);
-            em.getTransaction().begin();
-            em.remove(l);
-            em.getTransaction().commit();
+            Libro l = em.find(Libro.class,
+                    isbn);
+            l.setAlta(Boolean.FALSE);
+            //em.getTransaction().begin();
+            //em.remove(l);
+            //em.getTransaction().commit();
 
         } catch (NoResultException e) {
             System.out.println("No se encontó ninguna libro con ese ISBN.");
+            e.getMessage();
         }
 
     }

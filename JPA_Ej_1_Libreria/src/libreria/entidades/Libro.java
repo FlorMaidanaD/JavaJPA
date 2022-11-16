@@ -138,6 +138,10 @@ public class Libro implements Serializable {
     public String toString() {
         return "Libro:\n" + "id= " + id + ", titulo= " + titulo + ", año= " + anio + ", ejemplares= " + ejemplares + ", Prestados= " + ejemplaresPrestados + ", Disponibles= " + ejemplaresRestantes + ", alta =" + alta + "\n autor= " + autor + "\n editorial= " + editorial;
     }
+    
+    public void imprimirLindo(){        
+        //System.out.printf("%5s %-20s %-10s\n", id, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, autor, editorial);
+        System.out.printf("%-5s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", id, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, alta, autor.getNombre(), editorial.getNombre());
 
- 
+    }
 }

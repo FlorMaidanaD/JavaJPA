@@ -16,22 +16,34 @@ import javax.persistence.Id;
  * @author maida
  */
 @Entity
-public class Editorial implements Serializable {
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private long documento;
     private String nombre;
-    private Boolean alta;
+    private String apellido;
+    private String telefono;
 
-    public Editorial() {
+    public Cliente(Integer id, long documento, String nombre, String apellido, String telefono) {
+        this.id = id;
+        this.documento = documento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
     }
 
-    public Editorial(Integer id, String nombre, Boolean alta) {
-        this.id = id;
-        this.nombre = nombre;
-        this.alta = alta;
+    public Cliente() {
+    }
+
+    public long getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(long documento) {
+        this.documento = documento;
     }
 
     public String getNombre() {
@@ -42,14 +54,22 @@ public class Editorial implements Serializable {
         this.nombre = nombre;
     }
 
-    public Boolean getAlta() {
-        return alta;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setAlta(Boolean alta) {
-        this.alta = alta;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
-    
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -68,10 +88,10 @@ public class Editorial implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Editorial)) {
+        if (!(object instanceof Cliente)) {
             return false;
         }
-        Editorial other = (Editorial) object;
+        Cliente other = (Cliente) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,10 +100,11 @@ public class Editorial implements Serializable {
 
     @Override
     public String toString() {
-        return "Editorial: \n" + "id= " + id + ", nombre= " + nombre + ", alta= " + alta;
+        return "Cliente{" + "id=" + id + ", documento=" + documento + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + '}';
     }
-     public void imprimirLindo (){
-                System.out.printf("%5s %-20s %-10s\n", id, nombre);
+
+    public void imprimirLindo() {
+        System.out.printf("%-25s %-30s %-30s %-30s\n", documento, nombre, apellido, telefono);
     }
-    
+
 }

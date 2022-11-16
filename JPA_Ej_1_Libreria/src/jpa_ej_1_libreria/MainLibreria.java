@@ -125,7 +125,7 @@ public class MainLibreria {
                                 System.out.println("3. BAJA LIBRO");
                                 System.out.println("0. VOLVER");
                                 System.out.println("");
-                                System.out.print("Elección: 4");
+                                System.out.print("Elección: ");
                                 op2 = leer.nextInt();
                                 switch (op2) {
                                     case 1:
@@ -167,6 +167,7 @@ public class MainLibreria {
                                 System.out.println("4. CONSULTA LIBRO por NOMBRE");
                                 System.out.println("5. CONSULTA LIBRO por AUTOR");
                                 System.out.println("6. CONSULTA LIBRO por EDITORIAL");
+                                System.out.println("7. CONSULTA TODOS LOS LIBROS");
                                 System.out.println("0. VOLVER");
                                 System.out.println("");
                                 System.out.print("Elección: ");
@@ -210,6 +211,12 @@ public class MainLibreria {
                                         System.out.println("*** Ingrese NOMBRE DE LA EDITORIAL del libro a CONSULTAR: -");
                                         String nombree = leer.next();
                                         sl.consultaLibroEditorial(nombree);
+                                        break;
+                                    case 7:
+                                        System.out.println("");
+                                        System.out.println("************************************************************************************************************************************************************************");
+                                        sl.mostrarLibros();
+                                        System.out.println("************************************************************************************************************************************************************************");
                                         break;
                                 }
                             } while (op2 != 0);

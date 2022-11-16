@@ -10,10 +10,9 @@ import libreria.entidades.Editorial;
 
 public class ServicioEditorial {
 
-           Scanner leer = new Scanner(System.in).useDelimiter("\n");
+    Scanner leer = new Scanner(System.in).useDelimiter("\n");
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("LibreriaPersistencia");
     EntityManager em = emf.createEntityManager();
-    
 
     public void crearEditorial() {
         try {
@@ -71,16 +70,16 @@ public class ServicioEditorial {
         Collection<Editorial> editoriales = em.createQuery("SELECT a FROM Editorial a"
                 + " WHERE a.nombre = :nombre").setParameter("nombre", nombre).getResultList();
         for (Editorial editoriale : editoriales) {
-            System.out.println(editoriale.toString());
-            System.out.println("");
+            if (editoriale.getAlta() == true) {
+                editoriale.imprimirLindo();
+                System.out.println("");
+            }
         }
 
     }
 
     public void modificacionEditorial(String nombre, String nombreNuevo) {
-
         try {
-
             Editorial e = (Editorial) em.createQuery("SELECT a FROM Editorial a"
                     + " WHERE a.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();
             Editorial e1 = em.find(Editorial.class, e.getId());
@@ -92,14 +91,10 @@ public class ServicioEditorial {
         } catch (NoResultException e) {
             System.out.println("No se encontó ninguna editorial con ese nombre.");
         }
-
     }
-    
-    
+
     public void EliminacionEditorial(String nombre) {
-
         try {
-
             Editorial e = (Editorial) em.createQuery("SELECT a FROM Editorial a"
                     + " WHERE a.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();
             Editorial e1 = em.find(Editorial.class, e.getId());
@@ -111,8 +106,5 @@ public class ServicioEditorial {
         } catch (NoResultException e) {
             System.out.println("No se encontó ninguna editorial con ese nombre.");
         }
-
     }
-
-
 }
